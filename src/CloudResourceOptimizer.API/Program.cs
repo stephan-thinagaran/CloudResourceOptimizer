@@ -1,7 +1,14 @@
 using CloudResourceOptimizer.API.Orchestration;
 using CloudResourceOptimizer.API.Services;
+using Serilog;
 
+// Configure Serilog from appsettings.json
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Host.UseSerilog((context, config) =>
+{
+    config.ReadFrom.Configuration(context.Configuration);
+});
 
 // Add services
 builder.Services.AddSingleton<AzureResourceService>();
@@ -25,5 +32,18 @@ app.MapGet("/optimize", async (AgenticAIOrchestrator orchestrator) =>
 
 app.UseSwagger();
 app.UseSwaggerUI();
+app.UseSerilogRequestLogging();
 
-app.Run();
+try
+{
+    Log.Information("Starting CloudResourceOptimizer API");
+    app.Run();
+}
+catch (Exception ex)
+{
+    Log.Fatal(ex, "Application terminated unexpectedly");
+}
+finally
+{
+    Log.CloseAndFlush();
+}
