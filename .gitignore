@@ -1,0 +1,88 @@
+# .gitignore for Visual Studio and .NET projects
+
+# Build results
+bin/
+obj/
+
+# User-specific files
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Visual Studio Code
+.vscode/
+
+# NuGet
+*.nupkg
+.nuget/
+packages/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Logs
+*.log
+
+# Others
+*.vspscc
+*.vssscc
+*.dbmdl
+*.pdb
+*.cache
+*.ide
+*.sdf
+*.opensdf
+*.VC.db
+
+# Azure Pipelines
+.azure-pipelines/
+
+# Rider
+.idea/
+*.sln.iml
+
+# Test results
+TestResults/
+
+# Local history
+.localhistory/
+
+# Others
+_ReSharper*/
+*.[Rr]e[Ss]harper
+*.DotSettings.user
+
+# Backup & temp files
+*~
+*.tmp
+*.bak
+*.swp
+*.swo
+*.orig
+
+# Coverage
+coverage/
+*.coverage
+*.coveragexml
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# Windows image file caches
+*.jfif
+*.jpe
+*.jpeg
+*.jpg
+*.png
+*.gif
+*.tif
+*.tiff
+*.ico
+
+# End of .gitignore
