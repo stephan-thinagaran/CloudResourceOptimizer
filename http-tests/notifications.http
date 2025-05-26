@@ -1,0 +1,22 @@
+# Import base URL and content type from environments
+@baseUrl = {{$dotenv baseUrl}}
+@contentType = {{$dotenv contentType}}
+
+### Subscribe to optimization notifications
+# @name subscribe
+POST {{baseUrl}}/notifications/subscribe
+Content-Type: {{contentType}}
+
+{
+  "email": "user@example.com",
+  "subscriptionId": "{{subscriptionId}}",
+  "notificationType": "OptimizationComplete"
+}
+
+### Unsubscribe from notifications
+# @name unsubscribe
+DELETE {{baseUrl}}/notifications/unsubscribe?email=user@example.com
+Accept: {{contentType}}
+
+# Variables for request body
+@subscriptionId = 00000000-0000-0000-0000-000000000000

@@ -1,0 +1,9 @@
+# Import base URL and content type from environments
+@baseUrl = {{$dotenv baseUrl}}
+@contentType = {{$dotenv contentType}}
+
+### Trigger resource optimization
+# @name optimize
+GET {{baseUrl}}/optimize
+Accept: {{contentType}}
+

@@ -15,13 +15,13 @@ public class AzureResourceService
         _logger = logger;
         _configuration = configuration;
 
-        // Get Azure credentials from configuration
-        var tenantId = _configuration["Azure:TenantId"];
-        var clientId = _configuration["Azure:ClientId"];
-        var clientSecret = _configuration["Azure:ClientSecret"];
+        var credential = new DefaultAzureCredential(new DefaultAzureCredentialOptions
+        {
+            ExcludeSharedTokenCacheCredential = true,
+            ExcludeVisualStudioCredential = false
+        });
 
-        // Create a credential object using the client secret
-        var credential = new ClientSecretCredential(tenantId, clientId, clientSecret);
+        _armClient = new ArmClient(credential);
 
         // Create the ARM client
         _armClient = new ArmClient(credential);

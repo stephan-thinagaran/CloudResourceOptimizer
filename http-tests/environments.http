@@ -1,0 +1,7 @@
+@dev = http://localhost:5176
+@staging = https://staging-resource-optimizer.azurewebsites.net
+@production = https://resource-optimizer.azurewebsites.net
+
+# Select the environment to use
+@baseUrl = {{dev}}
+@contentType = application/json

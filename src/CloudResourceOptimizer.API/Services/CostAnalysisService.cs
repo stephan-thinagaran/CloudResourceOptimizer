@@ -5,39 +5,47 @@ namespace CloudResourceOptimizer.API.Services;
 public class CostAnalysisService
 {
     private readonly ILogger<CostAnalysisService> _logger;
+    private readonly IConfiguration _configuration;
 
-    public CostAnalysisService(ILogger<CostAnalysisService> logger)
+    public CostAnalysisService(ILogger<CostAnalysisService> logger, IConfiguration configuration)
     {
         _logger = logger;
+        _configuration = configuration;
     }
 
     public async Task<Dictionary<string, decimal>> AnalyzeCostsAsync(List<string> resources)
     {
-        _logger.LogInformation("Starting cost analysis for {ResourceCount} resources", resources?.Count ?? 0);
+        _logger.LogInformation("Analyzing costs for {ResourceCount} resources", resources?.Count ?? 0);
         
         try
         {
-            if (resources == null || !resources.Any())
+            // TODO: Replace with actual Azure Cost Management API calls
+            // This is a stub implementation for demonstration
+            var costs = new Dictionary<string, decimal>();
+            
+            if (resources == null)
             {
-                _logger.LogWarning("No resources provided for cost analysis");
-                return new Dictionary<string, decimal>();
+                return costs;
             }
 
-            // TODO: Call Azure Cost Management API
-            await Task.Delay(100); // Simulate async work
+            // Simulate cost analysis with random values for demonstration
+            var random = new Random();
+            foreach (var resource in resources)
+            {
+                // Generate random cost between $10 and $200
+                var cost = (decimal)(random.NextDouble() * 190 + 10);
+                costs[resource] = cost;
+                
+                _logger.LogDebug("Resource {ResourceId} estimated cost: ${Cost}", resource, cost);
+            }
             
-            var costs = resources.ToDictionary(r => r, r => 100.00m);
-            var totalCost = costs.Values.Sum();
-            
-            _logger.LogInformation("Cost analysis completed. Total cost: ${TotalCost:F2} across {ResourceCount} resources", 
-                totalCost, resources.Count);
-            
+            _logger.LogInformation("Cost analysis completed for {ResourceCount} resources", costs.Count);
             return costs;
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Failed to analyze costs for resources");
-            throw;
+            _logger.LogError(ex, "Failed to analyze resource costs");
+            return new Dictionary<string, decimal>();
         }
     }
 }

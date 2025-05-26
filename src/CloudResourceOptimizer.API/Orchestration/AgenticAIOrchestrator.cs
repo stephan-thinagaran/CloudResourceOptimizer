@@ -30,6 +30,9 @@ public class AgenticAIOrchestrator
         {
             // Example flow:
             _logger.LogInformation("Fetching Azure resources");
+
+            var detailedResources = await _resourceService.GetDetailedResourcesAsync();
+
             var resources = await _resourceService.GetResourcesAsync();
 
             if (resources is null || resources.Count == 0)
