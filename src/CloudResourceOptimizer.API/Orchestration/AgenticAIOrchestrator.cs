@@ -20,16 +20,24 @@ public class AgenticAIOrchestrator
         _costService = costService;
         _executor = executor;
         _logger = logger;
-    }    public async Task<string> OptimizeResourcesAsync()
+    }
+
+    public async Task<string> OptimizeResourcesAsync()
     {
         _logger.LogInformation("Starting resource optimization process");
-        
+
         try
         {
             // Example flow:
             _logger.LogInformation("Fetching Azure resources");
             var resources = await _resourceService.GetResourcesAsync();
-            
+
+            if (resources is null || resources.Count == 0)
+            {
+                _logger.LogWarning("No resources found for optimization");
+                return "No resources found to optimize.";
+            }
+
             _logger.LogInformation("Analyzing costs for {ResourceCount} resources", resources?.Count ?? 0);
             var costInsights = await _costService.AnalyzeCostsAsync(resources);
 
